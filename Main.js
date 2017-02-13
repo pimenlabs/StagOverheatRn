@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
+import {Actions, Scene, Router, Switch, Modal} from 'react-native-router-flux';
 
 class Main extends Component {
   render() {
@@ -13,6 +13,7 @@ class Main extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,4 +27,5 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
 module.exports = Main;

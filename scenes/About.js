@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+import { Header, Body, Title, Container, Content } from 'native-base';
 
 export default class About extends Component {
+
+  renderHeader(){
+    const {title} = this.props;
+    return (
+        <Header><Body><Title>{title}</Title></Body></Header>
+    )
+  }
+
   render(){
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          About Page
-        </Text>
-      </View>
+      <Container>
+        {this.renderHeader()}
+        <Content style={styles.container}>
+          <Text style={styles.welcome}>
+            Stag Overheat v0.1
+          </Text>
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',

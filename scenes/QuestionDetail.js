@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Left, Right, Button, Body, Title, Container, Content, Text, Icon, Card, CardItem, Thumbnail } from 'native-base';
 import {Actions} from 'react-native-router-flux';
+import moment from 'moment';
 
 export default class QuestionDetail extends Component {
 
@@ -20,7 +21,7 @@ export default class QuestionDetail extends Component {
   }
 
   render(){
-    const {title, author} = this.props.question;
+    const {title, author, vote, description, createdAt} = this.props.question;
     //kode di atas dapat ditulis juga sbb
     /**
     * const title = this.props.question.title;
@@ -37,21 +38,21 @@ export default class QuestionDetail extends Component {
                 <Icon name="help-circle" />
                 <Body>
                   <Text>{title}</Text>
-                  <Text note>{author}, on April 15, 2016</Text>
+                  <Text note>{author}, on {moment(createdAt).format("DD/MM/YYYY")}</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
               <Body>
                 <Text>
-                  Lorem Ipsum dolor sit amet amet jabang baye
+                  {description}
                 </Text>
               </Body>
               <Right>
                 <Button transparent>
                   <Icon active name="arrow-up" />
                 </Button>
-                <Text>4</Text>
+                <Text>{vote}</Text>
                 <Button transparent>
                   <Icon active name="arrow-down" />
                 </Button>

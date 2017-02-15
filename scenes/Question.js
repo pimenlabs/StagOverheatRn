@@ -9,9 +9,9 @@ export default class Question extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.questions = [
-      {title: "First Question", author: "Feri"},
-      {title: "Second Question", author: "Donald"},
-      {title: "Third Question", author: "Heisenberg"},
+      {title: "First Question", author: "Feri", vote: 4, description: "Description 1", createdAt: new Date("2017-02-15")},
+      {title: "Second Question", author: "Donald", vote: 5, description: "Description 2", createdAt: new Date("2017-02-15")},
+      {title: "Third Question", author: "Heisenberg", vote: 0, description: "Description 3", createdAt: new Date("2017-02-15")},
     ];
     this.state = {
       dataSource: ds.cloneWithRows(this.questions),

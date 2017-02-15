@@ -5,6 +5,18 @@ import moment from 'moment';
 
 export default class QuestionDetail extends Component {
 
+  constructor(){
+    super();
+    this.state = {
+      vote: 0
+    };
+  }
+
+  componentWillMount(){
+    const {vote} = this.props.question;
+    this.setState({vote: vote});
+  }
+
   renderHeader(){
     const {title} = this.props;
     return (
@@ -20,8 +32,19 @@ export default class QuestionDetail extends Component {
     )
   }
 
+  voteUp(){
+    const currentVote = this.state.vote;
+    this.setState({vote: currentVote + 1})
+  }
+
+  voteDown(){
+    const currentVote = this.state.vote;
+    this.setState({vote: currentVote - 1})
+  }
+
   render(){
-    const {title, author, vote, description, createdAt} = this.props.question;
+    const {title, author, description, createdAt} = this.props.question;
+    const {vote} = this.state;
     //kode di atas dapat ditulis juga sbb
     /**
     * const title = this.props.question.title;
@@ -49,11 +72,11 @@ export default class QuestionDetail extends Component {
                 </Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=> this.voteUp()}>
                   <Icon active name="arrow-up" />
                 </Button>
                 <Text>{vote}</Text>
-                <Button transparent>
+                <Button transparent onPress={()=> this.voteDown()}>
                   <Icon active name="arrow-down" />
                 </Button>
               </Right>

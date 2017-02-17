@@ -1,19 +1,16 @@
 import {observable} from 'mobx';
 import {ListView} from 'react-native';
+import Rest from 'fetch-on-rest';
 
 class QuestionStore {
-
-  questions = [
-    {title: "First Question", author: "Feri", vote: 4, description: "Description 1", createdAt: new Date("2017-02-15")},
-    {title: "Second Question", author: "Donald", vote: 5, description: "Description 2", createdAt: new Date("2017-02-15")},
-    {title: "Third Question", author: "Heisenberg", vote: 0, description: "Description 3", createdAt: new Date("2017-02-15")},
-  ];
 
   @observable dataSource;
 
   constructor(){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.dataSource = ds.cloneWithRows(this.questions);
+    this.dataSource = ds.cloneWithRows([]);
+    this.api = new Rest("http://localhost:8000/");
+    this.refresh();
   }
 
   add(doc){
@@ -24,7 +21,10 @@ class QuestionStore {
 
   //replace dataSource with new questions array
   refresh(){
-    this.dataSource = this.dataSource.cloneWithRows(this.questions);
+    const self = this;
+    this.api.get('question').then(function(response) {
+      self.dataSource = self.dataSource.cloneWithRows(response);
+    });
   }
 
 }

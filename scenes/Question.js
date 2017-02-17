@@ -60,6 +60,7 @@ export default class Question extends Component {
           <ListView
             dataSource={dataSource}
             renderRow={this.renderRow.bind(this)}
+            enableEmptySections={true}
           />
         </Content>
       </Container>

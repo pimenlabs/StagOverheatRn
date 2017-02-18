@@ -34,7 +34,7 @@ class Main extends Component {
             <Scene key="About" component={About} title="About" icon={TabIcon} hideNavBar={true}/>
           </Scene>
           <Scene key="QuestionDetail" component={QuestionDetail} title="Question Detail" hideNavBar={true}/>
-          <Scene key="QuestionAdd" component={QuestionAdd} title="Question Add" hideNavBar={true}/>
+          <Scene key="QuestionAdd" store={QuestionStore} component={QuestionAdd} title="Question Add" hideNavBar={true}/>
         </Scene>
       </Scene>
     );

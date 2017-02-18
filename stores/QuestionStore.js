@@ -14,9 +14,7 @@ class QuestionStore {
   }
 
   add(doc){
-    this.questions.push(doc);
-
-    this.refresh();
+    this.api.post('question', doc);
   }
 
   //replace dataSource with new questions array

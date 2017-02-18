@@ -28,7 +28,7 @@ export default class Question extends Component {
           <Title>{title}</Title>
         </Body>
         <Right>
-          <Button transparent onPress={()=> this.handleAdd()}>
+          <Button transparent onPress={()=> Actions.QuestionAdd()}>
             <Icon name="add-circle" style={{color: '#0098ff'}}/>
           </Button>
         </Right>

@@ -5,6 +5,7 @@ import {Icon} from 'native-base';
 import About from './scenes/About';
 import Question from './scenes/Question';
 import QuestionDetail from './scenes/QuestionDetail';
+import QuestionAdd from './scenes/QuestionAdd';
 import {QuestionStore} from './stores'; //because we already make stores/index.js, we can easily use it like this
 
 class TabIcon extends Component {
@@ -33,6 +34,7 @@ class Main extends Component {
             <Scene key="About" component={About} title="About" icon={TabIcon} hideNavBar={true}/>
           </Scene>
           <Scene key="QuestionDetail" component={QuestionDetail} title="Question Detail" hideNavBar={true}/>
+          <Scene key="QuestionAdd" component={QuestionAdd} title="Question Add" hideNavBar={true}/>
         </Scene>
       </Scene>
     );

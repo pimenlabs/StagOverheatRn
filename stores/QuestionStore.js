@@ -5,6 +5,7 @@ import Rest from 'fetch-on-rest';
 class QuestionStore {
 
   @observable dataSource;
+  @observable question = {};
 
   constructor(){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -13,8 +14,30 @@ class QuestionStore {
     this.refresh();
   }
 
+  findOne(id){
+    //initiate this to self variable
+    const self = this;
+
+    //call api GET to http://localhost:8000/question/{id} to fetch single obj
+    this.api.get('question/'+ id).then(function(response){
+      //set single obj response to store.question reactively
+      self.question = response;
+    });
+  }
+
   add(doc){
     this.api.post('question', doc);
+  }
+
+  update(id, doc){
+    //initiate this to self variable
+    const self = this;
+
+    //call api PUT to http://localhost:8000/question/{id}, with passed data
+    this.api.put('question/'+ id, doc).then(function(){
+      //call method findOne from this class
+      self.findOne(id);
+    });
   }
 
   search(search){

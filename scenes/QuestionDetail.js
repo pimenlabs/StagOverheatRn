@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Header, Left, Right, Button, Body, Title, Container, Content, Text, Icon, Card, CardItem, Thumbnail } from 'native-base';
 import {Actions} from 'react-native-router-flux';
+import {observer} from 'mobx-react/native';
 import moment from 'moment';
 
+@observer
 export default class QuestionDetail extends Component {
 
   constructor(){
     super();
-    this.state = {
-      vote: 0
-    };
   }
 
   componentWillMount(){
-    const {vote} = this.props.question;
-    this.setState({vote: vote});
+    //set store.question reactively by question props from Question.js rowData
+    this.props.store.question = this.props.question;
   }
 
   renderHeader(){
@@ -33,18 +32,25 @@ export default class QuestionDetail extends Component {
   }
 
   voteUp(){
-    const currentVote = this.state.vote;
-    this.setState({vote: currentVote + 1})
+    //get field from store.question
+    const {id, vote} = this.props.store.question;
+
+    //call method update on store
+    this.props.store.update(id, {vote: vote + 1});
   }
 
   voteDown(){
-    const currentVote = this.state.vote;
-    this.setState({vote: currentVote - 1})
+    //get field from store.question
+    const {id, vote} = this.props.store.question;
+
+    //call method update on store
+    this.props.store.update(id, {vote: vote - 1});
   }
 
   render(){
-    const {title, author, description, createdAt} = this.props.question;
-    const {vote} = this.state;
+    //use data from server instead of static props
+    const {title, author, description, createdAt, vote} = this.props.store.question;
+    // const {vote} = this.state; //we don't need vote from state anymore
     //kode di atas dapat ditulis juga sbb
     /**
     * const title = this.props.question.title;

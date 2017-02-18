@@ -17,6 +17,17 @@ class QuestionStore {
     this.api.post('question', doc);
   }
 
+  search(search){
+    //initiate this to self variable
+    const self = this;
+
+    //call api http://localhost:8000/question?search=search
+    //then set the response to dataSource to refresh it reactively
+    this.api.get('question', {search: search}).then(function(response) {
+      self.dataSource = self.dataSource.cloneWithRows(response);
+    });
+  }
+
   //replace dataSource with new questions array
   refresh(){
     const self = this;

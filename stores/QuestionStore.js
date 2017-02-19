@@ -10,7 +10,7 @@ class QuestionStore {
   constructor(){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.dataSource = ds.cloneWithRows([]);
-    this.api = new Rest("http://localhost:8000/");
+    this.api = new Rest("http://localhost:8000/api/v1/");
     this.refresh();
   }
 
@@ -57,6 +57,11 @@ class QuestionStore {
     this.api.get('question').then(function(response) {
       self.dataSource = self.dataSource.cloneWithRows(response);
     });
+  }
+
+  //add answer to answer table with questionId as first param, and doc as second
+  addAnswer(questionId, doc){
+    this.api.post('question/'+ questionId +'/answers', doc);
   }
 
 }

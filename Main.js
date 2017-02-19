@@ -6,6 +6,7 @@ import About from './scenes/About';
 import Question from './scenes/Question';
 import QuestionDetail from './scenes/QuestionDetail';
 import QuestionAdd from './scenes/QuestionAdd';
+import AnswerAdd from './scenes/AnswerAdd';
 import {QuestionStore} from './stores'; //because we already make stores/index.js, we can easily use it like this
 
 class TabIcon extends Component {
@@ -35,6 +36,7 @@ class Main extends Component {
           </Scene>
           <Scene key="QuestionDetail" store={QuestionStore} component={QuestionDetail} title="Question Detail" hideNavBar={true}/>
           <Scene key="QuestionAdd" store={QuestionStore} component={QuestionAdd} title="Question Add" hideNavBar={true}/>
+          <Scene key="AnswerAdd" store={QuestionStore} component={AnswerAdd} title="Answer Add" hideNavBar={true}/>
         </Scene>
       </Scene>
     );

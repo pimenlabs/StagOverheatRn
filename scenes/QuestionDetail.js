@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Header, Left, Right, Button, Body, Title, Container, Content, Text, Icon, Card, CardItem, Thumbnail } from 'native-base';
+import {
+  Header, Left, Right, Button, Body, Title, Container, Content, Text, Icon, Card, CardItem, Thumbnail,
+} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import {observer} from 'mobx-react/native';
 import moment from 'moment';
@@ -17,7 +19,7 @@ export default class QuestionDetail extends Component {
   }
 
   renderHeader(){
-    const {title} = this.props;
+    const {id, title} = this.props;
     return (
         <Header>
           <Left>
@@ -26,7 +28,12 @@ export default class QuestionDetail extends Component {
             </Button>
           </Left>
           <Body><Title>{title}</Title></Body>
-          <Right/>
+          <Right>
+            <Button transparent onPress={()=> Actions.AnswerAdd({questionId: id})}>
+              <Icon name="add" style={{color: "#057ce4"}}/>
+              <Text> Answer</Text>
+            </Button>
+          </Right>
         </Header>
     )
   }
@@ -49,7 +56,7 @@ export default class QuestionDetail extends Component {
 
   render(){
     //use data from server instead of static props
-    const {title, author, description, createdAt, vote} = this.props.store.question;
+    const {id, title, author, description, createdAt, vote} = this.props.store.question;
     // const {vote} = this.state; //we don't need vote from state anymore
     //kode di atas dapat ditulis juga sbb
     /**

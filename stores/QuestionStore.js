@@ -6,10 +6,12 @@ class QuestionStore {
 
   @observable dataSource;
   @observable question = {};
+  @observable dataSourceAnswers;
 
   constructor(){
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.dataSource = ds.cloneWithRows([]);
+    this.dataSourceAnswers = ds.cloneWithRows([]);
     this.api = new Rest("http://localhost:8000/api/v1/");
     this.refresh();
   }
@@ -61,7 +63,20 @@ class QuestionStore {
 
   //add answer to answer table with questionId as first param, and doc as second
   addAnswer(questionId, doc){
-    this.api.post('question/'+ questionId +'/answers', doc);
+    const self = this;
+    this.api.post('question/'+ questionId +'/answers', doc).then(function(response){
+      self.findAnswers(questionId);
+    });
+  }
+
+  //get all answers from a question by questionId
+  findAnswers(questionId){
+    const self = this;
+    //call api GET http://localhost:8000/api/v1/question/{questionId}/answers
+    this.api.get('question/'+ questionId + '/answers').then(function(response) {
+      //fill dataSourceAnswers reactively using its response
+      self.dataSourceAnswers = self.dataSourceAnswers.cloneWithRows(response);
+    });
   }
 
 }

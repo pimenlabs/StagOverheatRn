@@ -68,9 +68,16 @@ export default class Question extends Component {
     return header;
   }
 
+  handleGoToQuestionDetail(rowData){
+    //find answers using API
+    this.props.store.findAnswers(rowData.id);
+
+    Actions.QuestionDetail({question: rowData});
+  }
+
   renderRow(rowData){
     return (
-      <ListItem onPress={()=> {Actions.QuestionDetail({question: rowData})}}>
+      <ListItem onPress={()=> this.handleGoToQuestionDetail(rowData)}>
         <Body>
           <Text>{rowData.author}</Text>
           <Text note>{rowData.title}</Text>

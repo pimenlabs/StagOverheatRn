@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Header, Left, Right, Button, Body, Title, Container, Content, Text, Icon, Card, CardItem, Thumbnail,
+  Header, Left, Right, Button, Body, Title, Container,
+  Content, Text, Icon, Card, CardItem, Thumbnail, Footer
 } from 'native-base';
+import {ListView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {observer} from 'mobx-react/native';
 import moment from 'moment';
@@ -19,7 +21,8 @@ export default class QuestionDetail extends Component {
   }
 
   renderHeader(){
-    const {id, title} = this.props;
+    const {title} = this.props;
+    const questionId = this.props.question.id;
     return (
         <Header>
           <Left>
@@ -29,7 +32,7 @@ export default class QuestionDetail extends Component {
           </Left>
           <Body><Title>{title}</Title></Body>
           <Right>
-            <Button transparent onPress={()=> Actions.AnswerAdd({questionId: id})}>
+            <Button transparent onPress={()=> Actions.AnswerAdd({questionId: questionId})}>
               <Icon name="add" style={{color: "#057ce4"}}/>
               <Text> Answer</Text>
             </Button>
@@ -54,6 +57,25 @@ export default class QuestionDetail extends Component {
     this.props.store.update(id, {vote: vote - 1});
   }
 
+  renderAnswerRow(rowData){
+    return (
+      <Card>
+        <CardItem bordered>
+            <Body>
+              <Text note>Someone, on {moment(new Date()).format("DD/MM/YYYY")}</Text>
+            </Body>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Text>
+            {rowData.text}
+            </Text>
+          </Body>
+        </CardItem>
+     </Card>
+   );
+  }
+
   render(){
     //use data from server instead of static props
     const {id, title, author, description, createdAt, vote} = this.props.store.question;
@@ -68,6 +90,8 @@ export default class QuestionDetail extends Component {
       <Container>
         {this.renderHeader()}
         <Content>
+
+          {/* Question Detail */}
           <Card>
             <CardItem bordered>
               <Left>
@@ -94,8 +118,16 @@ export default class QuestionDetail extends Component {
                 </Button>
               </Right>
             </CardItem>
-         </Card>
+          </Card>
         </Content>
+        <Footer style={{height: 320}}>
+          {/* Answers List */}
+          <ListView
+            dataSource={this.props.store.dataSourceAnswers}
+            renderRow={this.renderAnswerRow.bind(this)}
+            enableEmptySections={true}
+          />
+        </Footer>
       </Container>
     );
   }

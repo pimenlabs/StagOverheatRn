@@ -46,8 +46,8 @@ export default class QuestionAdd extends Component {
     //save data to db with Store
     this.props.store.add(this.state);
 
-    //refresh dataSource to the latest update reactively
-    this.props.store.refresh();
+    // //refresh dataSource to the latest update reactively
+    // this.props.store.refresh();
 
     //clear the form
     this.setState({

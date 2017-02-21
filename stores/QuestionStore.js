@@ -28,7 +28,10 @@ class QuestionStore {
   }
 
   add(doc){
-    this.api.post('question', doc);
+    const self = this;
+    this.api.post('question', doc).then(function(response){
+      self.refresh();
+    });
   }
 
   update(id, doc){
